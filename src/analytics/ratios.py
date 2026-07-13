@@ -100,3 +100,133 @@ def return_on_assets(net_profit,
         return None
 
     return round((net_profit / total_assets) * 100, 2)
+
+# ==========================================================
+# Debt to Equity Ratio
+# ==========================================================
+
+def debt_to_equity(
+        borrowings,
+        equity_capital,
+        reserves):
+    """
+    Debt to Equity Ratio
+
+    Return:
+        0 if borrowings = 0
+        None if equity <= 0
+    """
+
+    if borrowings == 0:
+        return 0
+
+    equity = equity_capital + reserves
+
+    if equity <= 0:
+        return None
+
+    return round(
+        borrowings / equity,
+        2
+    )
+
+
+# ==========================================================
+# High Leverage Flag
+# ==========================================================
+
+def high_leverage_flag(
+        debt_equity,
+        broad_sector):
+    """
+    High leverage if D/E > 5
+    Ignore Financials sector.
+    """
+
+    if debt_equity is None:
+        return False
+
+    if broad_sector == "Financials":
+        return False
+
+    return debt_equity > 5
+
+
+# ==========================================================
+# Interest Coverage Ratio
+# ==========================================================
+
+def interest_coverage_ratio(
+        operating_profit,
+        other_income,
+        interest):
+    """
+    Interest Coverage Ratio
+    """
+
+    if interest == 0:
+        return None
+
+    return round(
+        (operating_profit + other_income)
+        / interest,
+        2
+    )
+
+
+# ==========================================================
+# ICR Label
+# ==========================================================
+
+def icr_label(icr):
+
+    if icr is None:
+        return "Debt Free"
+
+    return ""
+
+
+# ==========================================================
+# ICR Warning Flag
+# ==========================================================
+
+def icr_warning(icr):
+
+    if icr is None:
+        return False
+
+    return icr < 1.5
+
+
+# ==========================================================
+# Net Debt
+# ==========================================================
+
+def net_debt(
+        borrowings,
+        investments):
+    """
+    Net Debt
+    """
+
+    return borrowings - investments
+
+
+# ==========================================================
+# Asset Turnover
+# ==========================================================
+
+def asset_turnover(
+        sales,
+        total_assets):
+    """
+    Asset Turnover Ratio
+    """
+
+    if total_assets == 0:
+        return None
+
+    return round(
+        sales / total_assets,
+        2
+    )
